@@ -23,7 +23,6 @@ const (
 )
 
 func main() {
-	// fmt.Println("Hello World !!!")
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
@@ -44,10 +43,12 @@ func main() {
 	}
 
 	user := []User{}
-	db.Select(&user, "SELECT * FROM user_masjit ORDER BY username ASC")
-	us := user[0]
+	err = db.Select(&user, "SELECT * FROM user_masjit ORDER BY username ASC")
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	fmt.Println("Successfully connected!")
-	fmt.Println("data", us)
+	fmt.Println("data", user)
 
 }
